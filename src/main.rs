@@ -1,6 +1,7 @@
 extern crate rand;
 
 use std::io;
+use std::cmp::Ordering;
 use rand::Rng;
 // bring in io library from standard library
 
@@ -20,8 +21,18 @@ fn main() {
     // & means reference, references are immutable by default
     io::stdin().read_line(&mut guess).expect("Failed to read line");
 
+    // convert/parse number from string
+    let guess: u32 = guess.trim().parse()
+        .expect("Please type a number!");
 
     // how to sub data into strings
     println!("You guessed: {}", guess);
+
+    // comparison
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!"),
+    }
 
 }
